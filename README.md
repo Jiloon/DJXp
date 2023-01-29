@@ -1,12 +1,12 @@
 # **DJXp**
 
-### Application Function
-A crude application for one to have the **DJ experience**. The application allows one to create song lists and save them as
-sets to be loaded & played whenever. The application lets users edit set content and sets themselves. Various current
-and next song information is displayed to the user as well as set information. Users are able to choose, then  view and
-listen to their sets in real-time. Various useful DJ & producer tools are available to the user to have control over
-the set and perform in real-time. For a more detailed overview of the program's functions, please refer to the
-"User Stories" Section below.
+### Function
+A crude application for one to have the **DJ experience**. The application allows one to create song lists and save 
+them as sets to be loaded & played whenever. The application lets users edit set content and sets themselves. 
+Various current and next song information is displayed to the user as well as set information. Users are able to 
+choose, then  view and listen to their sets in real-time. Various useful DJ & producer tools are available to the 
+user to have control over the set and perform in real-time. For a more detailed overview of the program's functions, 
+please refer to the "User Stories" Section below.
 
 
 ### Audience
@@ -15,10 +15,10 @@ the set and perform in real-time. For a more detailed overview of the program's 
 
 
 ### Value
-I'm big into multimedia. I do graphic design, edit video, and of course, **I produce music**. So why not combine (at least)
-one of those with another passion—programming. I'm also only into the producing side of the industry, with a history in
-performance. I've never delved into the realm of DJ-ing even though producers are mostly DJs and DJs are mostly
-producers; so this is a good opportunity for me to get into it.
+I'm big into multimedia. I do graphic design, edit video, and of course, **I produce music**. So why not combine 
+(at least) one of those with another passion—programming. I'm also only into the producing side of the industry, with 
+a history in performance. I've never delved into the realm of DJ-ing even though producers are mostly DJs and DJs are 
+mostly producers; so this is a good opportunity for me to get into it.
 
 
 ## User Stories
@@ -49,4 +49,4 @@ producers; so this is a good opportunity for me to get into it.
 - As a user, I want to be able to skip to the next song early/cut the current song early
 - As a user, I want to be able to load SFX & Ambience audio files in
 - As a user, I want to be able to use key binds to play SFX & Ambience in real-time during a set
-- As a user, I want to be able to add a song (input audio file, title, artist, rest of song data) to the local database
+- As a user, I want to be able to add a song (audio file, title, artist, rest of song data) to the local database
