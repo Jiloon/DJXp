@@ -22,6 +22,12 @@ public class Set {
         genre = givenGenre;
     }
 
+    // EFFECTS: Constructs a new set obj with an empty list of songs, and a given name and no genre
+    public Set(String givenName) {
+        this();
+        name = givenName;
+    }
+
     // MODIFIES: this
     // EFFECTS: adds a new song object according to its respective file name to the songs in this set
     public void addSongToSet(String fileName) {
@@ -33,5 +39,9 @@ public class Set {
     //          in the set
     public void addSongToSet(String fileName, int givenBPM, String givenKey) {
         songs.add(new Song(fileName, givenBPM, givenKey));
+    }
+
+    public void setGenre(String givenGenre) {
+        genre = givenGenre;
     }
 }
