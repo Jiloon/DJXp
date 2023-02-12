@@ -11,7 +11,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import java.io.*;
-import java.util.ArrayList;
+import java.util.Arrays;
 
 /*
   Represents a song object having a length, a bpm value, a key, a title, a set of contributing artists, playable audio,
@@ -23,13 +23,14 @@ public class Song {
     private String songKey;
     private String name;
     private String genre;
-    private ArrayList<String> artists;
+    private String[] artists;
     private Media audio;
     private File audioFile;
-    private double speed;
-    private int volume;
 
     public Song(String fileName) throws NullPointerException {
+        bpm = 0;
+        songKey = "Unknown";
+
         try {
             audioFile = new File("data/songs/" + fileName + ".mp3");
             audio = new Media(audioFile.toURI().toString());
@@ -43,8 +44,12 @@ public class Song {
             System.out.println("Parser encountered an error");
             e.printStackTrace();
         }
-        speed = 1.0;
-        volume = 0;
+    }
+
+    public Song(String fileName, int givenBPM, String givenKey) {
+        this(fileName);
+        bpm = givenBPM;
+        songKey = givenKey;
     }
 
     protected void fillSongData() throws IOException, TikaException, SAXException {
@@ -58,23 +63,38 @@ public class Song {
         input.close();
 
         length = Double.parseDouble(metadata.get("xmpDM:duration"));
-        bpm = 0;
-        songKey = "";
         genre = metadata.get("xmpDM:genre");
         name = metadata.get("dc:title");
-        artists = new ArrayList<>();
-        artists.add(metadata.get("xmpDM:artist"));
+        //artists = metadata.get("xmpDM:artist").split("/");
 
-        /*
-        for (String temp : metadata.names()) {
-            System.out.println(temp);
-        }
-        */
-
-        System.out.println(genre + name + artists);
+        System.out.println(genre + name + Arrays.toString(artists));
     }
 
     public Media getAudio() {
         return audio;
+    }
+
+    public double getLength() {
+        return length;
+    }
+
+    public int getBpm() {
+        return bpm;
+    }
+
+    public String getKey() {
+        return songKey;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public String[] getArtists() {
+        return artists;
     }
 }
