@@ -11,11 +11,10 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import java.io.*;
-import java.util.Arrays;
 
 /*
-  Represents a song object having a length, a bpm value, a key, a title, a set of contributing artists, playable audio,
-  a playback speed, and a playback volume.
+  Represents a song object having a length, a bpm value, a key, a title, a genre, a set of contributing artists,
+  playable audio, and its respective mp3 file
 */
 public class Song {
     private double length;
@@ -27,6 +26,9 @@ public class Song {
     private Media audio;
     private File audioFile;
 
+    // EFFECTS: Constructs song obj with a BPM of 0, an unknown key, its respective audio file accessed from the
+    //          songs database, and pulls its audio. Also fills in length, genre, name, and artists fields from
+    //          respective audio file's metadata
     public Song(String fileName) throws NullPointerException {
         bpm = 0;
         songKey = "Unknown";
@@ -34,7 +36,7 @@ public class Song {
         try {
             audioFile = new File("data/songs/" + fileName + ".mp3");
             audio = new Media(audioFile.toURI().toString());
-            fillSongData();
+            fillFromMetadata();
         } catch (NullPointerException | IOException e) {
             System.out.println("No file of name \"" + fileName + "\" found");
             e.printStackTrace();
@@ -47,28 +49,33 @@ public class Song {
         }
     }
 
+    // EFFECTS: Constructs a song obj with the given BPM, the given key, its respective audio file accessed from the
+    //          songs database, and pulls its audio. Also fills in length, genre, name, and artists fields from
+    //          respective audio file's metadata
     public Song(String fileName, int givenBPM, String givenKey) {
         this(fileName);
         bpm = givenBPM;
         songKey = givenKey;
     }
 
-    protected void fillSongData() throws IOException, TikaException, SAXException {
+    // MODIFIES: this
+    // EFFECTS: Parses through the song's audio file's IDv3 header to acquire the respective metadata to fill in
+    //          the song's length, genre, name, and artists fields
+    protected void fillFromMetadata() throws IOException, TikaException, SAXException {
         InputStream input = new FileInputStream(audioFile);
         ContentHandler handler = new DefaultHandler();
         Metadata metadata = new Metadata();
         Parser parser = new Mp3Parser();
         ParseContext context = new ParseContext();
 
+        //parse through the MP3 IDv3 header to get the metadata info
         parser.parse(input, handler, metadata, context);
         input.close();
 
         length = Double.parseDouble(metadata.get("xmpDM:duration"));
         genre = metadata.get("xmpDM:genre");
         name = metadata.get("dc:title");
-        artists = metadata.get("xmpDM:artist").split("/");
-
-        System.out.println(length + genre + name + Arrays.toString(artists));
+        artists = metadata.get("xmpDM:artist").split("/"); //IDv3 artist is one field, split by divider
     }
 
     public Media getAudio() {

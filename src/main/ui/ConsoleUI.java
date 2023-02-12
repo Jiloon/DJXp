@@ -1,12 +1,12 @@
 package ui;
 
-import model.DJXp;
+import model.Playback;
 
 // A basic stripped DJ application
 public class ConsoleUI {
-    DJXp djxp;
+    Playback player;
 
     ConsoleUI() {
-        djxp = new DJXp();
+        player = new Playback();
     }
 }
