@@ -22,12 +22,14 @@ public class DJXp {
         nextSpeed = 1.0;
         nextVolume = 0;
 
-        Song utl = new Song("Martin Garrix, Dean Lewis - Used To Love", 119, "E Maj");
-        Song har = new Song("Mike Williams - Harmony (feat. Xillions)");
-        Song hme = new Song("Robert Grace - Hate Me");
-        Song enf = new Song("Stromae - L'enfer");
-        Song dfy = new Song("VALORANT, Grabbitz - Die For You");
-        audioPlayer = new MediaPlayer(har.getAudio());
+        //Song har = new Song("Mike Williams - Harmony (feat. Xillions)", 128, "C Maj");
+        //Song hme = new Song("Robert Grace - Hate Me");
+        //Song enf = new Song("Stromae - L'enfer");
+        //Song dfy = new Song("VALORANT, Grabbitz - Die For You");
+        //Song utl = new Song("Martin Garrix, Dean Lewis - Used To Love", 119, "E Maj");
+        //Song wyr = new Song("Judah and the Lion - Why did you run (JILOON Remix)", 119, "E Maj");
+        Song tay = new Song("Kygo x NOTD - Think About You x Nobody (JILOON Remix)", 119, "E Maj");
+        audioPlayer = new MediaPlayer(tay.getAudio());
         audioPlayer.play();
     }
 

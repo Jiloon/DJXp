@@ -40,6 +40,7 @@ public class Song {
             e.printStackTrace();
         } catch (TikaException e) {
             System.out.println("Error opening MP3 metadata");
+            e.printStackTrace();
         } catch (SAXException e) {
             System.out.println("Parser encountered an error");
             e.printStackTrace();
@@ -65,9 +66,9 @@ public class Song {
         length = Double.parseDouble(metadata.get("xmpDM:duration"));
         genre = metadata.get("xmpDM:genre");
         name = metadata.get("dc:title");
-        //artists = metadata.get("xmpDM:artist").split("/");
+        artists = metadata.get("xmpDM:artist").split("/");
 
-        System.out.println(genre + name + Arrays.toString(artists));
+        System.out.println(length + genre + name + Arrays.toString(artists));
     }
 
     public Media getAudio() {
