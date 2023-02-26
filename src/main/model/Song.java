@@ -29,7 +29,7 @@ public class Song {
     // EFFECTS: Constructs song obj with a BPM of 0, an unknown key, its respective audio file accessed from the
     //          songs database, and pulls its audio. Also fills in length, genre, name, and artists fields from
     //          respective audio file's metadata
-    public Song(String fileName) throws NullPointerException {
+    public Song(String fileName) {
         bpm = 0;
         songKey = "Unknown";
 
@@ -86,7 +86,7 @@ public class Song {
         return length;
     }
 
-    public int getBpm() {
+    public int getBPM() {
         return bpm;
     }
 

@@ -1,8 +1,8 @@
 package ui;
 
-// Main call
+// Main call, initializes the console user interface (and in turn the rest of the program)
 public class Main {
     public static void main(String[] args) {
-        ConsoleUI consoleApp = new ConsoleUI();
+        new ConsoleUI();
     }
 }
