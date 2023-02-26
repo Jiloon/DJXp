@@ -29,6 +29,7 @@
     </orderEntry>
     <orderEntry type="library" name="lib" level="project" />
     <orderEntry type="library" name="mpatric.mp3agic" level="project" />
-    <orderEntry type="library" name="tika-app-2.7.0" level="project" />
+    <orderEntry type="library" name="tika-app-2.7.0" level="application" />
+    <orderEntry type="library" name="openjfx-16_windows-x64_bin-sdk" level="application" />
   </component>
 </module>
