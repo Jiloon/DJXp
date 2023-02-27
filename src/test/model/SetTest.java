@@ -58,7 +58,41 @@ public class SetTest {
     @Test
     void testConstructorNameGenreSongs() {
         assertEquals(songList, set3.getSongs());
-        assertEquals("", set3.getName());
-        assertEquals("", set3.getGenre());
+        assertEquals("MySet", set3.getName());
+        assertEquals("EDM", set3.getGenre());
+    }
+
+    @Test
+    void testAddSongToEmptySet() {
+        ArrayList<Song> tempList = new ArrayList<>();
+        tempList.add(song2);
+        set0.addSongToSet(song2);
+        assertEquals(tempList, set0.getSongs());
+    }
+
+    @Test
+    void testAddSongToFilledSet() {
+        songList.add(song2);
+        set3.addSongToSet(song2);
+        assertEquals(songList, set3.getSongs());
+    }
+
+    @Test
+    void testRemoveSongFromSet() {
+        songList.remove(song1);
+        set3.removeSongFromSet(song1);
+        assertEquals(songList, set3.getSongs());
+    }
+
+    @Test
+    void testEditGenre() {
+        set3.setGenre("Future House");
+        assertEquals("Future House", set3.getGenre());
+    }
+
+    @Test
+    void testEditName() {
+        set3.setName("Set Two");
+        assertEquals("Set Two", set3.getName());
     }
 }

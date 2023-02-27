@@ -35,18 +35,22 @@ public class Set {
         name = givenName;
     }
 
+    /*
     // MODIFIES: this
     // EFFECTS: adds a new song object according to its respective file name to the songs in this set
     public void addSongToSet(String fileName) throws NullPointerException {
         songs.add(new Song(fileName));
     }
+     */
 
+    /*
     // MODIFIES: this
     // EFFECTS: adds a new song object according to its respective file name with specified bpm and key to the songs
     //          in the set
     public void addSongToSet(String fileName, int givenBPM, String givenKey) throws NullPointerException {
         songs.add(new Song(fileName, givenBPM, givenKey));
     }
+     */
 
     // MODIFIES: this
     // EFFECTS: adds a song obj to the list of songs in the set
