@@ -36,6 +36,29 @@ public class SetTest {
 
     @Test
     void testConstructorNoParams() {
-        assertTrue();
+        assertTrue(set0.getSongs().isEmpty());
+        assertEquals("", set0.getName());
+        assertEquals("", set0.getGenre());
+    }
+
+    @Test
+    void testConstructorName() {
+        assertTrue(set1.getSongs().isEmpty());
+        assertEquals("MySet", set1.getName());
+        assertEquals("", set1.getGenre());
+    }
+
+    @Test
+    void testConstructorNameGenre() {
+        assertTrue(set2.getSongs().isEmpty());
+        assertEquals("MySet", set2.getName());
+        assertEquals("EDM", set2.getGenre());
+    }
+
+    @Test
+    void testConstructorNameGenreSongs() {
+        assertEquals(songList, set3.getSongs());
+        assertEquals("", set3.getName());
+        assertEquals("", set3.getGenre());
     }
 }
