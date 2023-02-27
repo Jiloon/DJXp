@@ -17,10 +17,10 @@ import java.util.ArrayList;
 public class Playback {
     //only initialized to allow for MediaPlayer. Will give warning; ignore. JavaFX loaded from class-path instead of
     //module-path, but nothing actually breaks. I'm too lazy to go fix it, so ignore.
-    static final JFXPanel JFX_PANEL = new JFXPanel();
-    static final Media SOUND_LOGO = new Media(new File("data/soundLogo.mp3").toURI().toString());
-    static final String SET_NOT_FOUND = "That set doesn't exist";
-    static final String SONG_NOT_FOUND = "That song isn't in the set";
+    public static final JFXPanel JFX_PANEL = new JFXPanel();
+    public static final Media SOUND_LOGO = new Media(new File("data/soundLogo.mp3").toURI().toString());
+    public static final String SET_NOT_FOUND = "That set doesn't exist";
+    public static final String SONG_NOT_FOUND = "That song isn't in the set";
 
     private MediaPlayer audioPlayer;
     private ArrayList<Set> listOfSets;
@@ -113,11 +113,13 @@ public class Playback {
         return getCurrentSetSongs().size() - (currentSong + 1);
     }
 
+    /*
     // MODIFIES: this
     // EFFECTS: produces a new set object with given name and adds it to the list of sets
     public void makeNewSet(String givenName) {
         listOfSets.add(new Set(givenName));
     }
+     */
 
     // MODIFIES: this
     // EFFECTS: produces new set obj with given name and genre and adds it to the list of sets
@@ -125,29 +127,37 @@ public class Playback {
         listOfSets.add(new Set(givenName, givenGenre));
     }
 
+    /*
     // MODIFIES: this
     // EFFECTS: produces new set with given name, genre, and list of songs and adds it to the list of sets
     public void makeNewSet(String givenName, String givenGenre, ArrayList<Song> givenSongs) {
         listOfSets.add(new Set(givenName, givenGenre, givenSongs));
     }
+     */
 
+    /*
     // MODIFIES: this
     // EFFECTS: adds set to list of sets
     public void makeNewSet(Set givenSet) {
         listOfSets.add(givenSet);
     }
+     */
 
+    /*
     // MODIFIES: this
     // EFFECTS: removes set from the list of sets
     public void removeSet(Set givenSet) throws NullPointerException {
         listOfSets.remove(givenSet);
     }
+     */
 
+    /*
     // MODIFIES: this
     // EFFECTS: removes set through set ID from list of sets
     public void removeSet(int setID) throws ArrayIndexOutOfBoundsException {
         listOfSets.remove(setID);
     }
+     */
 
     // MODIFIES: this
     // EFFECTS: removes set through set name from list of sets
@@ -166,12 +176,15 @@ public class Playback {
         }
     }
 
+    /*
     // MODIFIES: this
     // EFFECTS: removes specified song from specified set
     public void removeSongFromSet(Song givenSong, Set set) throws NullPointerException {
         set.removeSongFromSet(givenSong);
     }
+     */
 
+    /*
     // MODIFIES: this
     // EFFECTS: removes specified song from specified set through set name
     public void removeSongFromSet(Song givenSong, String setName) throws NullPointerException {
@@ -188,6 +201,7 @@ public class Playback {
             throw new NullPointerException(SONG_NOT_FOUND);
         }
     }
+     */
 
     // MODIFIES: this
     // EFFECTS: removes specified song from specified set through song name and set name
@@ -210,6 +224,7 @@ public class Playback {
         }
     }
 
+    /*
     // MODIFIES: this
     // EFFECTS: removes specified song from specified set through set id
     public void removeSongFromSet(Song givenSong, int setID) throws ArrayIndexOutOfBoundsException {
@@ -219,13 +234,17 @@ public class Playback {
             throw new ArrayIndexOutOfBoundsException(SET_NOT_FOUND);
         }
     }
+     */
 
+    /*
     // MODIFIES: this
     // EFFECTS: adds specified song to specified set
     public void addSongToSet(Song givenSong, Set set) throws NullPointerException {
         set.addSongToSet(givenSong);
     }
+     */
 
+    /*
     // MODIFIES: this
     // EFFECTS: adds specified song to specified set through set name
     public void addSongToSet(Song givenSong, String setName) throws NullPointerException {
@@ -242,6 +261,7 @@ public class Playback {
             throw new NullPointerException(SET_NOT_FOUND);
         }
     }
+     */
 
     // MODIFIES: this
     // EFFECTS: adds specified song to specified set through song name and set name
@@ -264,6 +284,7 @@ public class Playback {
         }
     }
 
+    /*
     // MODIFIES: this
     // EFFECTS: adds specified song to specified set through set ID
     public void addSongToSet(Song givenSong, int setID) throws ArrayIndexOutOfBoundsException {
@@ -273,6 +294,7 @@ public class Playback {
             throw new ArrayIndexOutOfBoundsException(SET_NOT_FOUND);
         }
     }
+     */
 
     // MODIFIES: this
     // EFFECTS: removes specified song from specified set and adds it at a new position through set ID
@@ -435,6 +457,7 @@ public class Playback {
         nextVolume = 1.0;
     }
 
+    /*
     // MODIFIES: this
     // EFFECTS: resets playback values and sets the current set to specification
     public void selectSet(int givenSet) throws ArrayIndexOutOfBoundsException {
@@ -451,6 +474,7 @@ public class Playback {
             throw new ArrayIndexOutOfBoundsException(SET_NOT_FOUND);
         }
     }
+     */
 
     // MODIFIES: this
     // EFFECTS: resets playback values and sets the current set to specification through set name
@@ -492,17 +516,21 @@ public class Playback {
         audioPlayer.pause();
     }
 
+    /*
     // MODIFIES: this
     // EFFECTS: skips to specified time in song in milliseconds
     public void seek(int time) {
         audioPlayer.seek(Duration.millis(time));
     }
+     */
 
+    /*
     // MODIFIES: this
     // EFFECTS: skips to specified time in song
     public void seek(Duration time) {
         audioPlayer.seek(time);
     }
+     */
 
     // MODIFIES: this
     // EFFECTS: sets playback speed to specification

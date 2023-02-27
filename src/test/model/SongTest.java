@@ -1,8 +1,10 @@
 package model;
 
 import javafx.scene.media.Media;
+import javafx.scene.media.MediaException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 
 import java.io.File;
 
@@ -45,11 +47,23 @@ class SongTest {
         assertEquals("Used To Love", song2.getName());
         assertEquals(0, song2.getBPM());
         assertEquals("Unknown", song2.getKey());
-        assertEquals(song.getAudio().getMetadata(), FILE_AUDIO.getMetadata());
+        assertEquals(song2.getAudio().getMetadata(), FILE_AUDIO.getMetadata());
         assertEquals(236.8936767578125, song2.getLength());
         assertEquals("EDM", song2.getGenre());
         assertEquals(artists[0], song2.getArtists()[0]);
         assertEquals(artists[1], song2.getArtists()[1]);
+    }
+
+    @Test
+    void testConstructorFileMIA() {
+        Song song3 = new Song("OBviously not a real file");
+        assertNull(song3.getName());
+        assertEquals(0, song3.getBPM());
+        assertEquals("Unknown", song3.getKey());
+        assertNull(song3.getAudio());
+        assertEquals(0, song3.getLength());
+        assertNull(song3.getGenre());
+        assertNull(song3.getArtists());
     }
 
 }

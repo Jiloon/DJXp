@@ -1,6 +1,7 @@
 package model;
 
 import javafx.scene.media.Media;
+import javafx.scene.media.MediaException;
 import org.apache.tika.exception.TikaException;
 import org.apache.tika.metadata.Metadata;
 import org.apache.tika.parser.ParseContext;
@@ -37,14 +38,14 @@ public class Song {
             audioFile = new File("data/songs/" + fileName + ".mp3");
             audio = new Media(audioFile.toURI().toString());
             fillFromMetadata();
-        } catch (NullPointerException | IOException e) {
-            System.out.println("No file of name \"" + fileName + "\" found");
+        } catch (MediaException | IOException e) {
+            //System.out.println("No file of name \"" + fileName + "\" found");
             e.printStackTrace();
         } catch (TikaException e) {
-            System.out.println("Error opening MP3 metadata");
+            //System.out.println("Error opening MP3 metadata");
             e.printStackTrace();
         } catch (SAXException e) {
-            System.out.println("Parser encountered an error");
+            //System.out.println("Parser encountered an error");
             e.printStackTrace();
         }
     }

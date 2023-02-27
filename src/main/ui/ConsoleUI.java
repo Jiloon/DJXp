@@ -20,7 +20,7 @@ public class ConsoleUI {
     // MODIFIES: this
     // EFFECTS: runs the program on a while loop, scans for user input and executes respective actions accordingly.
     //          when the current song playing runs to an end, also handles switching to the next in queue
-    public void run() {
+    private void run() {
         boolean on = true;
         String input = "";
 
@@ -42,7 +42,7 @@ public class ConsoleUI {
     }
 
     // EFFECTS: prints out the list of keybinds to the user
-    public void showKeybinds() {
+    private void showKeybinds() {
         System.out.println("  : toggle play/pause");
         System.out.println("a : add new set");
         System.out.println("s : initialize new song");
@@ -67,7 +67,7 @@ public class ConsoleUI {
 
     // REQUIRES: a keyboard (this is a joke don't deduct points please)
     // EFFECTS: maps the key input to its respective action
-    public void parseControls(String input) {
+    private void parseControls(String input) {
         switch (input) {
             case " ":
                 play();
@@ -93,7 +93,7 @@ public class ConsoleUI {
     }
 
     // EFFECTS: part 2 of parseControls, too big of a method; issues with @SuppressWarning
-    public void parseControls2(String input) {
+    private void parseControls2(String input) {
         switch (input) {
             case "h":
                 editSetName();
@@ -119,7 +119,7 @@ public class ConsoleUI {
     }
 
     // EFFECTS: part 3 of parseControls, too big of a method; issues with @SuppressWarning
-    public void parseControls3(String input) {
+    private void parseControls3(String input) {
         switch (input) {
             case "c":
                 getCurrentSongData();
@@ -145,7 +145,7 @@ public class ConsoleUI {
     }
 
     // EFFECTS: part 4 of parseControls, too big of a method; issues with @SuppressWarning
-    public void parseControls4(String input) {
+    private void parseControls4(String input) {
         switch (input) {
             case ".":
                 player.handleSongEnd();
@@ -161,7 +161,7 @@ public class ConsoleUI {
     // REQUIRES: at least one set to already exist
     // MODIFIES: this
     // EFFECTS: selects the current set according to user input
-    public void chooseSet() {
+    private void chooseSet() {
         String input = "";
         System.out.println("\nEnter name of chosen set:\n");
         input = scanner.nextLine();
@@ -170,7 +170,7 @@ public class ConsoleUI {
 
     // MODIFIES: this
     // EFFECTS: sets the next playback speed according to user specification
-    public void setNextSongSpeed() {
+    private void setNextSongSpeed() {
         double input = 0;
         System.out.println("\nEnter next speed:\n");
         input = scanner.nextDouble();
@@ -179,7 +179,7 @@ public class ConsoleUI {
 
     // MODIFIES: this
     // EFFECTS: sets the next playback volume according to user input
-    public void setNextSongVolume() {
+    private void setNextSongVolume() {
         double input = 0;
         System.out.println("\nEnter next volume:\n");
         input = scanner.nextDouble();
@@ -188,7 +188,7 @@ public class ConsoleUI {
 
     // MODIFIES: this
     // EFFECTS: toggles playback (play -> pause, pause -> play) of audio
-    public void play() {
+    private void play() {
         try {
             player.togglePlay();
         } catch (NullPointerException e) {
@@ -198,7 +198,7 @@ public class ConsoleUI {
 
     // MODIFIES: this
     // EFFECTS: sets current playback speed according to user input
-    public void setSongSpeed() {
+    private void setSongSpeed() {
         double input = 0;
         System.out.println("\nEnter new speed:\n");
         input = scanner.nextDouble();
@@ -207,7 +207,7 @@ public class ConsoleUI {
 
     // MODIFIES: this
     // EFFECTS: sets current playback volume according to user input
-    public void setSongVolume() {
+    private void setSongVolume() {
         double input = 0;
         System.out.println("\nEnter the new volume:\n");
         input = scanner.nextDouble();
@@ -215,7 +215,7 @@ public class ConsoleUI {
     }
 
     // EFFECTS: prints out the next song in the queue's associated information
-    public void getNextSongData() {
+    private void getNextSongData() {
         System.out.println(player.getNextSongName() + " by " + Arrays.toString(player.getNextSongArtists()));
         System.out.println("BPM: " + player.getNextSongBPM());
         System.out.println("Key: " + player.getNextSongKey());
@@ -226,7 +226,7 @@ public class ConsoleUI {
     }
 
     // EFFECTS: prints out the current song's associated information
-    public void getCurrentSongData() {
+    private void getCurrentSongData() {
         System.out.println(player.getCurrentSongName() + " by " + Arrays.toString(player.getCurrentSongArtists()));
         System.out.println("BPM: " + player.getCurrentSongBPM());
         System.out.println("Key: " + player.getCurrentSongKey());
@@ -238,7 +238,7 @@ public class ConsoleUI {
 
     // REQUIRES: at least one set to already exist
     // EFFECTS: prints out the list of songs in the current set
-    public void getSetSongList() {
+    private void getSetSongList() {
         System.out.println("\nSongs in \"" + player.getCurrentSetTitle()
                 + "\" (" + player.getCurrentSetGenre() + "):\n");
         for (int i = 0; i < player.getSongs().size(); i++) {
@@ -249,7 +249,7 @@ public class ConsoleUI {
     // REQUIRES: the specified song to already be in the specified set, no duplicate songs or sets
     // MODIFIES: this
     // EFFECTS: removes specified song in specified set and adds it to specified position
-    public void moveSong() {
+    private void moveSong() {
         String[] input = new String[3];
         System.out.println("\nEnter the name of the set you want to edit:\n");
         input[0] = scanner.nextLine();
@@ -263,13 +263,13 @@ public class ConsoleUI {
 
     // REQUIRES: a set to have already been initialized and selected
     // EFFECTS: prints out the # of songs in the selected set
-    public void getSetLengthSongs() {
+    private void getSetLengthSongs() {
         System.out.println(player.getRemainingSetSongs());
     }
 
     // REQUIRES: a set to have already been initialized and selected
     // EFFECTS: returns selected set length left in MM:SS
-    public void getSetLengthTime() {
+    private void getSetLengthTime() {
         System.out.println(Math.floor(player.getRemainingSetTime() / 60)
                 + ":" + Math.round(player.getRemainingSetTime() % 60));
     }
@@ -277,7 +277,7 @@ public class ConsoleUI {
     // REQUIRES: the specified set to already exist, no duplicate sets
     // MODIFIES: this
     // EFFECTS: modifies genre to specified user input
-    public void editSetGenre() {
+    private void editSetGenre() {
         String[] input = new String[2];
         System.out.println("\nEnter the name of the set you want to edit:\n");
         input[0] = scanner.nextLine();
@@ -290,7 +290,7 @@ public class ConsoleUI {
     // REQUIRES: the specified set to already exist, no duplicate sets
     // MODIFIES: this
     // EFFECTS: renames the specified set to user input
-    public void editSetName() {
+    private void editSetName() {
         String[] input = new String[2];
         System.out.println("\nEnter the name of the set you want to edit:\n");
         input[0] = scanner.nextLine();
@@ -303,7 +303,7 @@ public class ConsoleUI {
     // REQUIRES: the specified set to already exist, no duplicate sets
     // MODIFIES: this
     // EFFECTS: removes the specified set from the list of sets
-    public void deleteSet() {
+    private void deleteSet() {
         String input = "";
         System.out.println("\nEnter the name of the set you want to delete:\n");
         input = scanner.nextLine();
@@ -314,7 +314,7 @@ public class ConsoleUI {
     // REQUIRES: the specified song to be in the specified set, no duplicate songs or sets
     // MODIFIES: this
     // EFFECTS: removes specified song from specified set
-    public void removeSongFromSet() {
+    private void removeSongFromSet() {
         String[] input = new String[2];
         System.out.println("\nEnter the name of the set you want to remove from:\n");
         input[0] = scanner.nextLine();
@@ -327,7 +327,7 @@ public class ConsoleUI {
     // REQUIRES: the specified song & set to already have been initialized, no duplicate songs or sets
     // MODIFIES: this
     // EFFECTS: adds the specified song to the set
-    public void addSongToSet() {
+    private void addSongToSet() {
         String[] input = new String[2];
         System.out.println("\nEnter the name of the set you want to add to:\n");
         input[0] = scanner.nextLine();
@@ -339,7 +339,7 @@ public class ConsoleUI {
 
     // MODIFIES: this
     // EFFECTS: creates a new set with specified name and genre, adds to set list
-    public void addSet() {
+    private void addSet() {
         String[] setInfo = new String[2];
         System.out.println("\nEnter set name:\n");
         setInfo[0] = scanner.nextLine();
@@ -352,7 +352,7 @@ public class ConsoleUI {
     // REQUIRES: the respective file to be in the songs folder
     // MODIFIES: this
     // EFFECTS: creates a song object from respective file and user specification and adds it to the song pool
-    public void initializeSong() {
+    private void initializeSong() {
         String[] songInfo = new String[3];
         System.out.println("\nEnter file name:\n");
         songInfo[0] = scanner.nextLine();
