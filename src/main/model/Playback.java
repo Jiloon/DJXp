@@ -32,6 +32,7 @@ public class Playback {
     private int currentSong;
     private ArrayList<Song> poolOfSongs;
     private boolean stopped;
+    private String status;
 
     // EFFECTS: Creates a new playback obj with no sets, a current song speed of 1.0, a current song volume of 0,
     //          a next song speed of 1.0, and a next song volume of 0, and loads and plays a startup sound logo
@@ -45,6 +46,7 @@ public class Playback {
         currentSet = 0;
         currentSong = 0;
         stopped = true;
+        status = "paused";
 
         audioPlayer = new MediaPlayer(SOUND_LOGO);
         audioPlayer.play();
@@ -312,9 +314,9 @@ public class Playback {
     public void positionSong(String songName, String setName, int newPosition) throws NullPointerException {
         for (Set set : listOfSets) {
             if (set.getName().equals(setName)) {
-                for (Song song : set.getSongs()) {
-                    if (song.getName().equals(songName)) {
-                        positionSong(song, listOfSets.indexOf(set), newPosition);
+                for (int i = 0; i < set.getSongs().size(); i++) {
+                    if (set.getSongs().get(i).getName().equals(songName)) {
+                        positionSong(set.getSongs().get(i), listOfSets.indexOf(set), newPosition);
                     }
                 }
             }
@@ -367,7 +369,7 @@ public class Playback {
 
     // EFFECTS: returns song duration of next song in queue in currently selected set
     public double getNextSongLength() {
-        return getCurrentSong().getLength();
+        return getNextSong().getLength();
     }
 
     // EFFECTS: returns song bpm of next song in queue in currently selected set
@@ -427,7 +429,7 @@ public class Playback {
     // MODIFIES: this
     // EFFECTS: toggles playback (play -> pause, pause -> play)
     public void togglePlay() {
-        if (audioPlayer.getStatus().equals(MediaPlayer.Status.PLAYING)) {
+        if (status.equals("playing")) {
             this.pause();
         } else {
             this.play();
@@ -507,6 +509,7 @@ public class Playback {
         } else {
             audioPlayer.play();
             stopped = false;
+            status = "playing";
         }
     }
 
@@ -514,6 +517,12 @@ public class Playback {
     // EFFECTS: pauses audio
     public void pause() {
         audioPlayer.pause();
+        status = "paused";
+    }
+
+    // EFFECTS: returns audioPlayer status
+    public String getPlayerStatus() {
+        return status;
     }
 
     /*
