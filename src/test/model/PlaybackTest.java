@@ -4,6 +4,7 @@ import javafx.scene.media.MediaPlayer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -36,6 +37,24 @@ public class PlaybackTest {
         artists[0] = "Judah & the Lion";
         nextArtists[0] = "Martin Garrix";
         nextArtists[1] = "Dean Lewis";
+    }
+
+    @Test
+    void testSetSongPool() {
+        ArrayList<Song> testSongs = new ArrayList<>();
+        testSongs.add(song0);
+        playback.setPoolOfSongs(testSongs);
+        assertEquals(1, playback.getSongs().size());
+        assertEquals(song0, playback.getSongs().get(0));
+    }
+
+    @Test
+    void testSetSetList() {
+        ArrayList<Set> testSets = new ArrayList<>();
+        testSets.add(new Set("OtherSet"));
+        playback.setListOfSets(testSets);
+        assertEquals(1, playback.getAllSets().size());
+        assertEquals(testSets.get(0), playback.getAllSets().get(0));
     }
 
     @Test
