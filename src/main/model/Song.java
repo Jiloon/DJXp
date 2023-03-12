@@ -83,7 +83,7 @@ public class Song {
         Parser parser = new Mp3Parser();
         ParseContext context = new ParseContext();
 
-        //parse through the MP3 IDv3 header to get the metadata info
+        //parse through the MP3 IDv3 header to get the metadata
         parser.parse(input, handler, metadata, context);
         input.close();
 
