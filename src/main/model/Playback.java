@@ -104,8 +104,7 @@ public class Playback {
                 result += song.getLength();
             }
         }
-        //System.out.println(audioPlayer.getStopTime().toSeconds());
-        //System.out.println(audioPlayer.getCurrentTime().toSeconds());
+
         result += audioPlayer.getStopTime().toSeconds() - audioPlayer.getCurrentTime().toSeconds();
 
         return result;
@@ -429,6 +428,8 @@ public class Playback {
     // EFFECTS: returns true if the song finishes playing on its own without intervention, false otherwise
     public boolean isEnd() {
         if (!stopped) {
+            //System.out.println(audioPlayer.getCurrentTime());
+            //System.out.println(audioPlayer.getStopTime());
             return (audioPlayer.getCurrentTime().greaterThanOrEqualTo(audioPlayer.getStopTime()));
         } else {
             return false;

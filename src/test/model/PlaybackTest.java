@@ -62,9 +62,9 @@ public class PlaybackTest {
 
     @Test
     void testIsEndEnd() {
-        playback.play();
+        playback.togglePlay();
         playback.getAudioPlayer().setOnReady(() -> {
-            playback.seek(4000000);
+            playback.seek(400000);
             assertTrue(playback.isEnd());
         });
     }

@@ -50,6 +50,20 @@ public class Song {
         }
     }
 
+    // EFFECTS: Constructs song obj with a BPM of 0, an unknown key, its respective audio file accessed from the
+    //          songs database, and pulls its audio, and fills song duration, genre, title, and artists with givens
+    public Song(String fileName, int givenBPM, String givenKey, double givenLength, String givenGenre,
+                String givenName, String[] givenArtists) {
+        audioFile = new File("data/songs/" + fileName + ".mp3");
+        audio = new Media(audioFile.toURI().toString());
+        bpm = givenBPM;
+        songKey = givenKey;
+        length = givenLength;
+        genre = givenGenre;
+        name = givenName;
+        artists = givenArtists;
+    }
+
     // EFFECTS: Constructs a song obj with the given BPM, the given key, its respective audio file accessed from the
     //          songs database, and pulls its audio. Also fills in length, genre, name, and artists fields from
     //          respective audio file's metadata
