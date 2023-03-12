@@ -23,6 +23,7 @@ public class JsonReader {
         filePath = FOLDER_LOCATION + givenFilePath + ".json";
     }
 
+    // EFFECTS: reads json data from song pool file and returns appropriate song pool
     public ArrayList<Song> getSongsFromFile() throws IOException {
         ArrayList<Song> songList = new ArrayList<>();
         StringBuilder contentBuilder = new StringBuilder();
@@ -44,6 +45,7 @@ public class JsonReader {
         return songList;
     }
 
+    // EFFECTS: reads json data from given set file and returns appropriate set
     public ArrayList<Set> getSetsFromFile(ArrayList<Song> songPool) throws IOException {
         ArrayList<Set> setList = new ArrayList<>();
         StringBuilder contentBuilder = new StringBuilder();
@@ -65,6 +67,7 @@ public class JsonReader {
         return setList;
     }
 
+    // EFFECTS: constructs a set off of given json data and pulling from respective songs from the song pool
     private Set constructSet(JSONObject json, ArrayList<Song> songPool) {
         String name = json.getString("name");
         String genre = json.getString("genre");
@@ -83,6 +86,7 @@ public class JsonReader {
         return set;
     }
 
+    // EFFECTS: constructs a song off of given json data
     private Song constructSong(JSONObject json) {
         String fileName = json.getString("file");
         int bpm = json.getInt("bpm");
