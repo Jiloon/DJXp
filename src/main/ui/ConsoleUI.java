@@ -270,7 +270,7 @@ public class ConsoleUI {
     // REQUIRES: a set to have already been initialized and selected
     // EFFECTS: returns selected set length left in MM:SS
     private void getSetLengthTime() {
-        System.out.println(Math.floor(player.getRemainingSetTime() / 60)
+        System.out.println((int) Math.floor(player.getRemainingSetTime() / 60)
                 + ":" + Math.round(player.getRemainingSetTime() % 60));
     }
 

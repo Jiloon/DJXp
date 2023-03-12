@@ -104,10 +104,15 @@ public class Playback {
                 result += song.getLength();
             }
         }
-
-        result += audioPlayer.getTotalDuration().toSeconds() - audioPlayer.getCurrentTime().toSeconds();
+        //System.out.println(audioPlayer.getStopTime().toSeconds());
+        //System.out.println(audioPlayer.getCurrentTime().toSeconds());
+        result += audioPlayer.getStopTime().toSeconds() - audioPlayer.getCurrentTime().toSeconds();
 
         return result;
+    }
+
+    public MediaPlayer getAudioPlayer() {
+        return audioPlayer;
     }
 
     // EFFECTS: returns remaining # of songs left in the set, excluding the one currently playing/selected
@@ -166,9 +171,9 @@ public class Playback {
     public void removeSet(String setName) throws NullPointerException {
         boolean found = false;
 
-        for (Set set : listOfSets) {
-            if (set.getName().equals(setName)) {
-                listOfSets.remove(set);
+        for (int i = 0; i < listOfSets.size(); i++) {
+            if (listOfSets.get(i).getName().equals(setName)) {
+                listOfSets.remove(i);
                 found = true;
             }
         }
@@ -176,6 +181,10 @@ public class Playback {
         if (!found) {
             throw new NullPointerException(SET_NOT_FOUND);
         }
+    }
+
+    public ArrayList<Set> getAllSets() {
+        return listOfSets;
     }
 
     /*
@@ -420,7 +429,7 @@ public class Playback {
     // EFFECTS: returns true if the song finishes playing on its own without intervention, false otherwise
     public boolean isEnd() {
         if (!stopped) {
-            return (audioPlayer.getCurrentTime().greaterThanOrEqualTo(audioPlayer.getCycleDuration()));
+            return (audioPlayer.getCurrentTime().greaterThanOrEqualTo(audioPlayer.getStopTime()));
         } else {
             return false;
         }
@@ -525,13 +534,11 @@ public class Playback {
         return status;
     }
 
-    /*
     // MODIFIES: this
     // EFFECTS: skips to specified time in song in milliseconds
     public void seek(int time) {
         audioPlayer.seek(Duration.millis(time));
     }
-     */
 
     /*
     // MODIFIES: this

@@ -4,7 +4,6 @@ import javafx.scene.media.MediaPlayer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -25,11 +24,11 @@ public class PlaybackTest {
         song0 = new Song("Martin Garrix, Dean Lewis - Used To Love");
         song1 = new Song("Kygo x NOTD - Think About You x Nobody (JILOON Remix)");
         song2 = new Song("Judah and the Lion - Why did you run (JILOON Remix)");
+        playback.makeNewSet("MySet", "EDM");
         playback.addSong("Martin Garrix, Dean Lewis - Used To Love", 119, "C# Maj");
         playback.addSong("Kygo x NOTD - Think About You x Nobody (JILOON Remix)",
                 128, "C Min");
         playback.addSong("Judah and the Lion - Why did you run (JILOON Remix)", 120, "A Min");
-        playback.makeNewSet("MySet", "EDM");
         playback.addSongToSet("Used To Love", "MySet");
         playback.selectSet("MySet");
         artists = new String[1];
@@ -47,6 +46,143 @@ public class PlaybackTest {
         assertEquals(1.0, playback1.getCurrentVolume());
         assertEquals(1.0, playback1.getNextSpeed());
         assertEquals(1.0, playback1.getNextVolume());
+    }
+
+    @Test
+    void testIsEndStopped() {
+        Playback playback1 = new Playback();
+        assertFalse(playback1.isEnd());
+    }
+
+    @Test
+    void testIsEndNotEnd() {
+        playback.togglePlay();
+        assertFalse(playback.isEnd());
+    }
+
+    @Test
+    void testIsEndEnd() {
+        playback.play();
+        playback.getAudioPlayer().setOnReady(() -> {
+            playback.seek(4000000);
+            assertTrue(playback.isEnd());
+        });
+    }
+
+    @Test
+    void testSelectSetNotFound() {
+        try {
+            playback.setSpeed(2.0);
+            playback.selectSet("Rando Name");
+            fail("Set should not have been found");
+        } catch (NullPointerException e) {
+            assertEquals(2.0, playback.getCurrentSpeed());
+        }
+    }
+
+    @Test
+    void testPositionSongNotFound() {
+        try {
+            playback.positionSong(song1, 0, 5);
+            fail("Song should not have been found");
+        } catch (NullPointerException e) {
+            assertEquals(1, playback.getCurrentSetSongs().size());
+        }
+    }
+
+    @Test
+    void testAddSongToSetNotFound() {
+        try {
+            playback.addSongToSet("Rando Song", "Rando Set");
+            fail("Set should not have been found");
+        } catch (NullPointerException e) {
+            assertEquals(3, playback.getSongs().size());
+        }
+    }
+
+    @Test
+    void testRemoveSongFromSet() {
+        assertEquals(song0.getName(),playback.getCurrentSongName());
+        playback.removeSongFromSet("Used To Love", "MySet");
+        assertEquals(0, playback.getCurrentSetSongs().size());
+    }
+
+    @Test
+    void testRemoveSongFromSetNotFound() {
+        try {
+            assertEquals(1, playback.getCurrentSetSongs().size());
+            playback.removeSongFromSet("Rando", "MySet");
+            fail("Song should not have been found");
+        } catch (NullPointerException e) {
+            assertEquals(1, playback.getCurrentSetSongs().size());
+        }
+    }
+
+    @Test
+    void testRemoveSet() {
+        assertEquals(1, playback.getAllSets().size());
+        playback.removeSet("MySet");
+        assertEquals(0, playback.getAllSets().size());
+    }
+
+    @Test
+    void testRemoveSetNotFound() {
+        try {
+            assertEquals(1, playback.getAllSets().size());
+            playback.removeSet("AWJRYGAWUGR");
+            fail("Should not have been found");
+        } catch (NullPointerException e) {
+            assertEquals(1, playback.getAllSets().size());
+        }
+    }
+
+    @Test
+    void testGetNumRemainingSongsZero() {
+        assertEquals(0, playback.getRemainingSetSongs());
+    }
+
+    @Test
+    void testGetNumRemainingSongsNonZero() {
+        playback.addSongToSet(song1.getName(), "MySet");
+        assertEquals(1, playback.getRemainingSetSongs());
+        playback.handleSongEnd();
+        assertEquals(0, playback.getRemainingSetSongs());
+    }
+
+    @Test
+    void testGetRemainingTime() {
+        playback.play();
+        playback.getAudioPlayer().setOnReady(() -> {
+            assertEquals(Math.round(song0.getLength()), Math.round(playback.getRemainingSetTime()));
+        });
+    }
+
+    @Test
+    void testGetRemainingTimeTwo() {
+        playback.addSongToSet(song1.getName(), "MySet");
+        playback.getAudioPlayer().setOnReady(() -> {
+            assertEquals(Math.round(song0.getLength() + song1.getLength()), Math.round(playback.getRemainingSetTime()));
+        });
+    }
+
+    @Test
+    void testSetGenreNameNotFound() {
+        try {
+            playback.setGenreName("Rando Set", "Future House");
+            fail("Set should not have been found");
+        } catch (NullPointerException e) {
+            assertEquals("EDM", playback.getCurrentSetGenre());
+        }
+    }
+
+    @Test
+    void testSetSetNameNotFound() {
+        try {
+            playback.setSetName("Rando Set", "Rando PART TWOOOOO");
+            fail("Set should not have been found");
+        } catch (NullPointerException e) {
+            assertEquals("MySet", playback.getCurrentSetTitle());
+        }
     }
 
     @Test
