@@ -90,6 +90,16 @@ public class Playback {
         poolOfSongs.add(new Song(fileName, givenBPM, givenKey));
     }
 
+    /*
+    public void addSong(String fileName, int givenBPM, String givenKey, double givenLength, String givenGenre,
+                        String givenName, String givenArtists) {
+        String[] artists;
+        artists = givenArtists.split("/");
+        poolOfSongs.add(new Song(fileName, givenBPM, givenKey, givenLength, givenGenre, givenName, artists));
+    }
+
+     */
+
     // EFFECTS: returns all initialized songs
     public ArrayList<Song> getSongs() {
         return poolOfSongs;
@@ -535,11 +545,13 @@ public class Playback {
         return status;
     }
 
+    /*
     // MODIFIES: this
     // EFFECTS: skips to specified time in song in milliseconds
     public void seek(int time) {
         audioPlayer.seek(Duration.millis(time));
     }
+     */
 
     /*
     // MODIFIES: this

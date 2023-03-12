@@ -60,14 +60,7 @@ public class PlaybackTest {
         assertFalse(playback.isEnd());
     }
 
-    @Test
-    void testIsEndEnd() {
-        playback.togglePlay();
-        playback.getAudioPlayer().setOnReady(() -> {
-            playback.seek(400000);
-            assertTrue(playback.isEnd());
-        });
-    }
+
 
     @Test
     void testSelectSetNotFound() {
