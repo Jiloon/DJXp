@@ -50,3 +50,5 @@ mostly producers; so this is a good opportunity for me to get into it.
 - As a user, I want to be able to load SFX & Ambience audio files in
 - As a user, I want to be able to use key binds to play SFX & Ambience in real-time during a set
 - As a user, I want to be able to add a song (audio file, title, artist, rest of song data) to the local database
+- As a user, I want the option to save my sets to file
+- As a user, I want the option to load my sets from file
