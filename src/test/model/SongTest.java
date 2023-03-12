@@ -1,10 +1,8 @@
 package model;
 
 import javafx.scene.media.Media;
-import javafx.scene.media.MediaException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.function.Executable;
 
 import java.io.File;
 
@@ -40,6 +38,7 @@ class SongTest {
         assertEquals("EDM", song.getGenre());
         assertEquals(artists[0], song.getArtists()[0]);
         assertEquals(artists[1], song.getArtists()[1]);
+        assertEquals(FILE_NAME, song.getFileName());
     }
 
     @Test
@@ -52,6 +51,7 @@ class SongTest {
         assertEquals("EDM", song2.getGenre());
         assertEquals(artists[0], song2.getArtists()[0]);
         assertEquals(artists[1], song2.getArtists()[1]);
+        assertEquals(FILE_NAME, song2.getFileName());
     }
 
     @Test
@@ -63,6 +63,7 @@ class SongTest {
         assertEquals("EDM", song3.getGenre());
         assertEquals(artists[0], song3.getArtists()[0]);
         assertEquals(artists[1], song3.getArtists()[1]);
+        assertEquals(FILE_NAME, song3.getFileName());
     }
 
     @Test

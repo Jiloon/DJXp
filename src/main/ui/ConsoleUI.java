@@ -1,7 +1,11 @@
 package ui;
 
 import model.Playback;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -9,11 +13,20 @@ import java.util.Scanner;
 public class ConsoleUI {
     Playback player;
     Scanner scanner;
+    JsonWriter jsonWriter;
+    JsonReader jsonReader;
 
     // EFFECTS: constructs a new console UI, initializes the playback/audio handler object and the scanner, runs ui
     ConsoleUI() {
         player = new Playback();
         scanner = new Scanner(System.in);
+        jsonReader = new JsonReader("songPool");
+        try {
+            player.setPoolOfSongs(jsonReader.getSongsFromFile());
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("File Not Found");
+        }
         run();
     }
 
@@ -63,6 +76,8 @@ public class ConsoleUI {
         System.out.println(", : set next song speed");
         System.out.println(". : skip to the next song");
         System.out.println("p : select set to play");
+        System.out.println("i : save sets to file");
+        System.out.println("o : load sets from file");
     }
 
     // REQUIRES: a keyboard (this is a joke don't deduct points please)
@@ -152,6 +167,12 @@ public class ConsoleUI {
                 break;
             case "p":
                 chooseSet();
+                break;
+            case "i":
+                saveSets();
+                break;
+            case "o":
+                loadSets();
                 break;
             default:
                 System.out.println("ENTER AN ACTUAL THING DUMMY");
@@ -362,5 +383,47 @@ public class ConsoleUI {
         songInfo[2] = scanner.nextLine();
 
         player.addSong(songInfo[0], Integer.parseInt(songInfo[1]), songInfo[2]);
+        try {
+            jsonWriter = new JsonWriter("songPool.json");
+            jsonWriter.writePool(player.getSongs());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            System.out.println("File Not Found");
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: saves the current song pool and set list to JSON files
+    private void saveSets() {
+        String fileName;
+        System.out.println("\nEnter file name:\n");
+        fileName = scanner.nextLine();
+
+        try {
+            jsonWriter = new JsonWriter(fileName);
+            jsonWriter.open();
+            jsonWriter.write(player.getAllSets());
+            jsonWriter.close();
+            System.out.println("\nSets saved successfully to " + fileName + "!\n");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            System.out.println("File Not Found");
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads set list from JSON file to program
+    private void loadSets() {
+        String fileName;
+        System.out.println("\nEnter the name of the file you want to load from:\n");
+        fileName = scanner.nextLine();
+
+        try {
+            jsonReader = new JsonReader(fileName);
+            player.setListOfSets(jsonReader.getSetsFromFile(player.getSongs()));
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("File Not Found");
+        }
     }
 }

@@ -16,5 +16,6 @@
     <orderEntry type="library" name="mpatric.mp3agic" level="project" />
     <orderEntry type="library" name="tika-app-2.7.0" level="project" />
     <orderEntry type="library" name="tika-app-2.7.0 (2)" level="project" />
+    <orderEntry type="library" name="json-20210307" level="project" />
   </component>
 </module>

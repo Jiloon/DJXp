@@ -90,6 +90,12 @@ public class Playback {
         poolOfSongs.add(new Song(fileName, givenBPM, givenKey));
     }
 
+    // MODIFIES: this
+    // EFFECTS: sets the song pool to given list of songs
+    public void setPoolOfSongs(ArrayList<Song> songs) {
+        poolOfSongs = songs;
+    }
+
     /*
     public void addSong(String fileName, int givenBPM, String givenKey, double givenLength, String givenGenre,
                         String givenName, String givenArtists) {
@@ -141,6 +147,12 @@ public class Playback {
     // EFFECTS: produces new set obj with given name and genre and adds it to the list of sets
     public void makeNewSet(String givenName, String givenGenre) {
         listOfSets.add(new Set(givenName, givenGenre));
+    }
+
+    // MODIFIES: this
+    // EFFECTS: sets the list of sets to the given list of sets
+    public void setListOfSets(ArrayList<Set> sets) {
+        listOfSets = sets;
     }
 
     /*

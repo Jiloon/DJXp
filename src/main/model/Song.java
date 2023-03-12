@@ -54,7 +54,7 @@ public class Song {
     //          songs database, and pulls its audio, and fills song duration, genre, title, and artists with givens
     public Song(String fileName, int givenBPM, String givenKey, double givenLength, String givenGenre,
                 String givenName, String[] givenArtists) {
-        audioFile = new File("data/songs/" + fileName + ".mp3");
+        audioFile = new File("./data/songs/" + fileName + ".mp3");
         audio = new Media(audioFile.toURI().toString());
         bpm = givenBPM;
         songKey = givenKey;
@@ -119,5 +119,9 @@ public class Song {
 
     public String[] getArtists() {
         return artists;
+    }
+
+    public String getFileName() {
+        return audioFile.getName().substring(0, audioFile.getName().length() - 4);
     }
 }
