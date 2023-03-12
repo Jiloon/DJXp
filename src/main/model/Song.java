@@ -35,7 +35,7 @@ public class Song {
         songKey = "Unknown";
 
         try {
-            audioFile = new File("data/songs/" + fileName + ".mp3");
+            audioFile = new File("./data/songs/" + fileName + ".mp3");
             audio = new Media(audioFile.toURI().toString());
             fillFromMetadata();
         } catch (MediaException | IOException e) {
