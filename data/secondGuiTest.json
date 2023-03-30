@@ -1,0 +1,58 @@
+{"sets": [
+    {
+        "songs": [
+            {
+                "file": "Martin Garrix, Dean Lewis - Used To Love",
+                "artists": [
+                    "Martin Garrix",
+                    "Dean Lewis"
+                ],
+                "name": "Used To Love",
+                "length": 236.8936767578125,
+                "genre": "EDM",
+                "bpm": 119,
+                "key": "C# Maj"
+            },
+            {
+                "file": "Judah and the Lion - Why did you run (JILOON Remix)",
+                "artists": ["Judah & the Lion"],
+                "name": "Why Did You Run? (JILOON Remix)",
+                "length": 215.0531768798828,
+                "bpm": 128,
+                "key": "C Maj"
+            }
+        ],
+        "name": "MySet",
+        "genre": "EDM"
+    },
+    {
+        "songs": [
+            {
+                "file": "Martin Garrix, Dean Lewis - Used To Love",
+                "artists": [
+                    "Martin Garrix",
+                    "Dean Lewis"
+                ],
+                "name": "Used To Love",
+                "length": 236.8936767578125,
+                "genre": "EDM",
+                "bpm": 119,
+                "key": "C# Maj"
+            },
+            {
+                "file": "Kygo x NOTD - Think About You x Nobody (JILOON Remix)",
+                "artists": [
+                    "Kygo",
+                    "NOTD",
+                    "JILOON"
+                ],
+                "name": "Think About You | Nobody (JILOON Remix)",
+                "length": 180.15017700195312,
+                "bpm": 116,
+                "key": "G# Min"
+            }
+        ],
+        "name": "MGX",
+        "genre": "Future House"
+    }
+]}

@@ -18,5 +18,17 @@
         "length": 215.0531768798828,
         "bpm": 128,
         "key": "C Maj"
+    },
+    {
+        "file": "Kygo x NOTD - Think About You x Nobody (JILOON Remix)",
+        "artists": [
+            "Kygo",
+            "NOTD",
+            "JILOON"
+        ],
+        "name": "Think About You | Nobody (JILOON Remix)",
+        "length": 180.15017700195312,
+        "bpm": 116,
+        "key": "G# Min"
     }
 ]}

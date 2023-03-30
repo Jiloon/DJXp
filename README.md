@@ -52,3 +52,10 @@ mostly producers; so this is a good opportunity for me to get into it.
 - As a user, I want to be able to add a song (audio file, title, artist, rest of song data) to the local database
 - As a user, I want the option to save my sets to file
 - As a user, I want the option to load my sets from file
+
+# Instructions for Grader
+- You can add sets to the application by clicking on the up arrow next to SETS and entering in appropriate data
+- You can add songs to a set by (after selecting a set (top bar)) clicking on the up arrow next to SONGS and choosing
+- You can locate my visual component by the logo's in the top left. View sets/songs pops up tables.
+- You can save the state of my application by clicking on the floppy disc icon
+- You can reload the state of my application by clicking on the load icon

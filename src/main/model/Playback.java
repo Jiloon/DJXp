@@ -461,10 +461,12 @@ public class Playback {
     // MODIFIES: this
     // EFFECTS: toggles playback (play -> pause, pause -> play)
     public void togglePlay() {
-        if (status.equals("playing")) {
-            this.pause();
-        } else {
-            this.play();
+        if (!getCurrentSetSongs().isEmpty()) {
+            if (status.equals("playing")) {
+                this.pause();
+            } else {
+                this.play();
+            }
         }
     }
 
@@ -473,16 +475,20 @@ public class Playback {
     //          song, else, reloads audio player with next song in queue and starts its play. Carries next song
     //          playback values to current song and resets next song playback values
     public void handleSongEnd() {
-        if (currentSong + 1 >= getCurrentSetSongs().size()) {
-            currentSong = 0;
-            audioPlayer.stop();
-            audioPlayer = new MediaPlayer(getCurrentSong().getAudio());
-            stopped = true;
-        } else {
-            audioPlayer.stop();
-            currentSong += 1;
-            audioPlayer = new MediaPlayer(getCurrentSong().getAudio());
-            audioPlayer.play();
+        if (!getCurrentSetSongs().isEmpty()) {
+            if (currentSong + 1 >= getCurrentSetSongs().size()) {
+                currentSong = 0;
+                audioPlayer.stop();
+                audioPlayer = new MediaPlayer(getCurrentSong().getAudio());
+                stopped = true;
+                status = "paused";
+            } else {
+                audioPlayer.stop();
+                currentSong += 1;
+                audioPlayer = new MediaPlayer(getCurrentSong().getAudio());
+                audioPlayer.play();
+                status = "playing";
+            }
         }
 
         currentSpeed = nextSpeed;
@@ -523,13 +529,37 @@ public class Playback {
                 currentVolume = 1.0;
                 nextSpeed = 1.0;
                 nextVolume = 1.0;
-                audioPlayer = new MediaPlayer(getCurrentSong().getAudio());
+                if (!getCurrentSetSongs().isEmpty()) {
+                    audioPlayer = new MediaPlayer(getCurrentSong().getAudio());
+                }
                 audioPlayer.stop();
             }
         }
 
         if (!found) {
             throw new NullPointerException(SET_NOT_FOUND);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: resets playback values and sets current set by relative set position
+    public void selectSet(int nextSet) {
+        currentSet += nextSet;
+        if (currentSet > (listOfSets.size() - 1)) {
+            currentSet = 0;
+        } else if (currentSet < 0) {
+            currentSet = listOfSets.size() - 1;
+        }
+        currentSong = 0;
+        currentSpeed = 1.0;
+        currentVolume = 1.0;
+        nextSpeed = 1.0;
+        nextVolume = 1.0;
+        audioPlayer.stop();
+        stopped = true;
+        status = "paused";
+        if (!getCurrentSetSongs().isEmpty()) {
+            audioPlayer = new MediaPlayer(getCurrentSong().getAudio());
         }
     }
 
