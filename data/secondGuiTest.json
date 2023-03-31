@@ -58,6 +58,28 @@
                 "length": 215.0531768798828,
                 "bpm": 128,
                 "key": "C Maj"
+            },
+            {
+                "file": "Avicii, The Chainsmokers, JILOON - Closer, Freak (Remix)",
+                "artists": [
+                    "Avicii",
+                    "The Chainsmokers",
+                    "JILOON"
+                ],
+                "name": "Freak | Closer (JILOON Remix)",
+                "length": 228.873291015625,
+                "genre": "Mashup",
+                "bpm": 116,
+                "key": "E Min"
+            },
+            {
+                "file": "Avicii - I'm Gonna Love Ya (JILOON Remix)",
+                "artists": ["Avicii"],
+                "name": "I'm Gonna Love Ya (JILOON Remix)",
+                "length": 195.25042724609375,
+                "genre": "Dance",
+                "bpm": 111,
+                "key": "D# Minor"
             }
         ],
         "name": "MGX",
