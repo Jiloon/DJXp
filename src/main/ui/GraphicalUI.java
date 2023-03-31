@@ -8,6 +8,8 @@ import persistence.JsonWriter;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -46,6 +48,22 @@ public class GraphicalUI implements ActionListener {
     private JButton addSong;
     private JButton removeSong;
     private JButton initializeSong;
+    private JSlider leftPitch;
+    private JSlider leftVolume;
+    private JSlider leftSpeed;
+    private JLabel leftName;
+    private JLabel leftArtists;
+    private JLabel leftKey;
+    private JLabel leftBpm;
+    private JLabel leftGenre;
+    private JSlider rightPitch;
+    private JSlider rightVolume;
+    private JSlider rightSpeed;
+    private JLabel rightName;
+    private JLabel rightArtists;
+    private JLabel rightKey;
+    private JLabel rightBpm;
+    private JLabel rightGenre;
     private Timer timer;
 
     private Playback player;
@@ -75,15 +93,374 @@ public class GraphicalUI implements ActionListener {
     }
 
     // MODIFIES: this
+    // EFFECTS: converts next song modifiable properties into current song and resets next song properties
+    private void transitionSliders() {
+        leftPitch.setValue(rightPitch.getValue());
+        leftVolume.setValue(rightVolume.getValue());
+        leftSpeed.setValue(rightSpeed.getValue());
+        rightPitch.setValue(100);
+        rightVolume.setValue(100);
+        rightSpeed.setValue(100);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: initializes pitch slider on right mixer with position, size, graphics. No current functionality
+    private void setupRightPitch() {
+        rightPitch = new JSlider(SwingConstants.HORIZONTAL, 0, 200, 100);
+        rightPitch.setSize(BAR_HEIGHT * 9 / 10, BAR_HEIGHT / 5);
+        rightPitch.setLocation(BAR_WIDTH * 7 / 480, FRAME_HEIGHT * 19 / 80);
+        rightPitch.setOpaque(false);
+        rightPitch.addChangeListener(
+                new ChangeListener() {
+                    @Override
+                    public void stateChanged(ChangeEvent e) {
+                        int value = rightPitch.getValue();
+                        //player.setNextPitch((double) value / 100);
+                    }
+                }
+        );
+    }
+
+    // MODIFIES: this
+    // EFFECTS: initializes volume slider on right mixer with position, size, graphic properties, adjusts volume by val
+    private void setupRightVolume() {
+        rightVolume = new JSlider(SwingConstants.HORIZONTAL, 0, 100, 100);
+        rightVolume.setSize(BAR_HEIGHT * 9 / 10, BAR_HEIGHT / 5);
+        rightVolume.setLocation(BAR_WIDTH * 7 / 480, FRAME_HEIGHT * 57 / 160);
+        rightVolume.setOpaque(false);
+        rightVolume.addChangeListener(
+                new ChangeListener() {
+                    @Override
+                    public void stateChanged(ChangeEvent e) {
+                        int value = rightVolume.getValue();
+                        player.setNextVolume((double) value / 100);
+                    }
+                }
+        );
+    }
+
+    // MODIFIES: this
+    // EFFECTS: initializes speed slider on right mixer with position, size, graphic properties, adjusts speed by val
+    private void setupRightSpeed() {
+        rightSpeed = new JSlider(SwingConstants.HORIZONTAL, 0, 200, 100);
+        rightSpeed.setSize(BAR_HEIGHT * 9 / 10, BAR_HEIGHT / 5);
+        rightSpeed.setLocation(BAR_WIDTH * 7 / 480, FRAME_HEIGHT * 38 / 80);
+        rightSpeed.setOpaque(false);
+        rightSpeed.addChangeListener(
+                new ChangeListener() {
+                    @Override
+                    public void stateChanged(ChangeEvent e) {
+                        int value = rightSpeed.getValue();
+                        player.setNextSpeed((double) value / 100);
+                    }
+                }
+        );
+    }
+
+    // MODIFIES: this
+    // EFFECTS: initializes song name text box on right mixer with position size and graphic properties
+    private void setupRightName() {
+        rightName = new JLabel("Name");
+        rightName.setForeground(Color.WHITE);
+        rightName.setFont(new Font("LEMON MILK Bold", Font.PLAIN, 55));
+        rightName.setSize(BAR_HEIGHT * 26 / 10, BAR_HEIGHT * 31 / 90);
+        rightName.setLocation(BAR_WIDTH * 7 / 480, FRAME_HEIGHT * 5 / 160);
+        rightName.setVerticalAlignment(SwingConstants.CENTER);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: initializes artists text box on right mixer with position size and graphic properties
+    private void setupRightArtists() {
+        rightArtists = new JLabel("Artists");
+        rightArtists.setForeground(Color.WHITE);
+        rightArtists.setFont(new Font("Kiona", Font.PLAIN, 40));
+        rightArtists.setSize(BAR_HEIGHT * 26 / 10, BAR_HEIGHT / 3);
+        rightArtists.setLocation(BAR_WIDTH * 7 / 480, FRAME_HEIGHT * 8 / 80);
+        rightArtists.setVerticalAlignment(SwingConstants.CENTER);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: initializes song key text box on right mixer with position size and graphic properties
+    private void setupRightKey() {
+        rightKey = new JLabel("Key");
+        rightKey.setForeground(Color.WHITE);
+        rightKey.setFont(new Font("Kiona", Font.PLAIN, 40));
+        rightKey.setSize(BAR_HEIGHT * 11 / 10, BAR_HEIGHT / 3);
+        rightKey.setLocation(BAR_WIDTH * 43 / 120, FRAME_HEIGHT * 7 / 80);
+        rightKey.setVerticalAlignment(SwingConstants.CENTER);
+        rightKey.setHorizontalAlignment(SwingConstants.CENTER);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: initializes song bpm text box on right mixer with position size and graphic properties
+    private void setupRightBpm() {
+        rightBpm = new JLabel("BPM");
+        rightBpm.setForeground(Color.WHITE);
+        rightBpm.setFont(new Font("Kiona", Font.PLAIN, 40));
+        rightBpm.setSize(BAR_HEIGHT * 11 / 10, BAR_HEIGHT / 3);
+        rightBpm.setLocation(BAR_WIDTH * 43 / 120, FRAME_HEIGHT * 17 / 80);
+        rightBpm.setVerticalAlignment(SwingConstants.CENTER);
+        rightBpm.setHorizontalAlignment(SwingConstants.CENTER);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: initializes song genre text box on right mixer with position size and graphic properties
+    private void setupRightGenre() {
+        rightGenre = new JLabel("Genre");
+        rightGenre.setForeground(Color.WHITE);
+        rightGenre.setFont(new Font("Kiona", Font.PLAIN, 40));
+        rightGenre.setSize(BAR_HEIGHT * 11 / 10, BAR_HEIGHT * 2 / 3);
+        rightGenre.setLocation(BAR_WIDTH * 43 / 120, FRAME_HEIGHT * 26 / 80);
+        rightGenre.setVerticalAlignment(SwingConstants.CENTER);
+        rightGenre.setHorizontalAlignment(SwingConstants.CENTER);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: handles the set up for the components of the right mixer
+    private void rightMixerComponentHandler() {
+        setupRightPitch();
+        setupRightVolume();
+        setupRightSpeed();
+        setupRightName();
+        setupRightArtists();
+        setupRightKey();
+        setupRightBpm();
+        setupRightGenre();
+    }
+
+    // MODIFIES: this
     // EFFECTS: initializes right mixer panel with position, size, graphic properties & components
     private void setupRightMixer() {
+        rightMixerComponentHandler();
 
+        rightMixer = new JPanel();
+        rightMixer.setLayout(null);
+        rightMixer.setOpaque(false);
+        rightMixer.add(rightPitch);
+        rightMixer.add(rightVolume);
+        rightMixer.add(rightSpeed);
+        rightMixer.add(rightName);
+        rightMixer.add(rightArtists);
+        rightMixer.add(rightKey);
+        rightMixer.add(rightBpm);
+        rightMixer.add(rightGenre);
+        rightMixer.setBounds(BAR_WIDTH / 2, BAR_HEIGHT, BAR_WIDTH / 2, FRAME_HEIGHT - 2 * BAR_HEIGHT);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: initializes pitch slider on left mixer with position, size, graphic properties. No current functionality
+    private void setupLeftPitch() {
+        leftPitch = new JSlider(SwingConstants.HORIZONTAL, 0, 200, 100);
+        leftPitch.setSize(BAR_HEIGHT * 9 / 10, BAR_HEIGHT / 5);
+        leftPitch.setLocation(BAR_WIDTH * 7 / 480, FRAME_HEIGHT * 19 / 80);
+        leftPitch.setOpaque(false);
+        leftPitch.addChangeListener(
+                new ChangeListener() {
+                    @Override
+                    public void stateChanged(ChangeEvent e) {
+                        int value = leftPitch.getValue();
+                        //player.setPitch((double) value / 100);
+                    }
+                }
+        );
+    }
+
+    // MODIFIES: this
+    // EFFECTS: initializes volume slider on left mixer with position, size, graphic properties, adjusts volume by val
+    private void setupLeftVolume() {
+        leftVolume = new JSlider(SwingConstants.HORIZONTAL, 0, 100, 100);
+        leftVolume.setSize(BAR_HEIGHT * 9 / 10, BAR_HEIGHT / 5);
+        leftVolume.setLocation(BAR_WIDTH * 7 / 480, FRAME_HEIGHT * 57 / 160);
+        leftVolume.setOpaque(false);
+        leftVolume.addChangeListener(
+                new ChangeListener() {
+                    @Override
+                    public void stateChanged(ChangeEvent e) {
+                        int value = leftVolume.getValue();
+                        player.setVolume((double) value / 100);
+                    }
+                }
+        );
+    }
+
+    // MODIFIES: this
+    // EFFECTS: initializes speed slider on left mixer with position, size, graphic properties, adjusts speed by val
+    private void setupLeftSpeed() {
+        leftSpeed = new JSlider(SwingConstants.HORIZONTAL, 0, 200, 100);
+        leftSpeed.setSize(BAR_HEIGHT * 9 / 10, BAR_HEIGHT / 5);
+        leftSpeed.setLocation(BAR_WIDTH * 7 / 480, FRAME_HEIGHT * 38 / 80);
+        leftSpeed.setOpaque(false);
+        leftSpeed.addChangeListener(
+                new ChangeListener() {
+                    @Override
+                    public void stateChanged(ChangeEvent e) {
+                        int value = leftSpeed.getValue();
+                        player.setSpeed((double) value / 100);
+                    }
+                }
+        );
+    }
+
+    // MODIFIES: this
+    // EFFECTS: initializes song name text box on left mixer with position size and graphic properties
+    private void setupLeftName() {
+        leftName = new JLabel("Name");
+        leftName.setForeground(Color.WHITE);
+        leftName.setFont(new Font("LEMON MILK Bold", Font.PLAIN, 55));
+        leftName.setSize(BAR_HEIGHT * 26 / 10, BAR_HEIGHT * 31 / 90);
+        leftName.setLocation(BAR_WIDTH * 7 / 480, FRAME_HEIGHT * 5 / 160);
+        leftName.setVerticalAlignment(SwingConstants.CENTER);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: initializes artists text box on left mixer with position size and graphic properties
+    private void setupLeftArtists() {
+        leftArtists = new JLabel("Artists");
+        leftArtists.setForeground(Color.WHITE);
+        leftArtists.setFont(new Font("Kiona", Font.PLAIN, 40));
+        leftArtists.setSize(BAR_HEIGHT * 26 / 10, BAR_HEIGHT / 3);
+        leftArtists.setLocation(BAR_WIDTH * 7 / 480, FRAME_HEIGHT * 8 / 80);
+        leftArtists.setVerticalAlignment(SwingConstants.CENTER);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: initializes song key text box on left mixer with position size and graphic properties
+    private void setupLeftKey() {
+        leftKey = new JLabel("Key");
+        leftKey.setForeground(Color.WHITE);
+        leftKey.setFont(new Font("Kiona", Font.PLAIN, 40));
+        leftKey.setSize(BAR_HEIGHT * 11 / 10, BAR_HEIGHT / 3);
+        leftKey.setLocation(BAR_WIDTH * 43 / 120, FRAME_HEIGHT * 7 / 80);
+        leftKey.setVerticalAlignment(SwingConstants.CENTER);
+        leftKey.setHorizontalAlignment(SwingConstants.CENTER);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: initializes song bpm text box on left mixer with position size and graphic properties
+    private void setupLeftBpm() {
+        leftBpm = new JLabel("BPM");
+        leftBpm.setForeground(Color.WHITE);
+        leftBpm.setFont(new Font("Kiona", Font.PLAIN, 40));
+        leftBpm.setSize(BAR_HEIGHT * 11 / 10, BAR_HEIGHT / 3);
+        leftBpm.setLocation(BAR_WIDTH * 43 / 120, FRAME_HEIGHT * 17 / 80);
+        leftBpm.setVerticalAlignment(SwingConstants.CENTER);
+        leftBpm.setHorizontalAlignment(SwingConstants.CENTER);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: initializes song genre text box on left mixer with position size and graphic properties
+    private void setupLeftGenre() {
+        leftGenre = new JLabel("Genre");
+        leftGenre.setForeground(Color.WHITE);
+        leftGenre.setFont(new Font("Kiona", Font.PLAIN, 40));
+        leftGenre.setSize(BAR_HEIGHT * 11 / 10, BAR_HEIGHT * 2 / 3);
+        leftGenre.setLocation(BAR_WIDTH * 43 / 120, FRAME_HEIGHT * 26 / 80);
+        leftGenre.setVerticalAlignment(SwingConstants.CENTER);
+        leftGenre.setHorizontalAlignment(SwingConstants.CENTER);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: updates left mixer components according to their proper values
+    private void updateLeftMixer() {
+        leftKey.setText(player.getCurrentSongKey());
+        leftBpm.setText(player.getCurrentSongBPM() + " BPM");
+        if (player.getCurrentSongGenre() != null) {
+            leftGenre.setText(player.getCurrentSongGenre().replaceAll(" ", "\n"));
+        } else {
+            leftGenre.setText("Unknown");
+        }
+
+        String[] artists = player.getCurrentSongArtists();
+        String artistsDisplay = artists[0];
+        for (int i = 1; i < artists.length; i++) {
+            artistsDisplay = artistsDisplay + ", " + artists[i];
+        }
+        leftArtists.setText(artistsDisplay);
+        leftName.setText(player.getCurrentSongName());
+    }
+
+    // MODIFIES: this
+    // EFFECTS: resets left mixer component values to their base
+    private void resetLeftMixer() {
+        leftKey.setText("Key");
+        leftBpm.setText("BPM");
+        leftGenre.setText("Genre");
+        leftArtists.setText("Artists");
+        leftName.setText("Name");
+    }
+
+    // MODIFIES: this
+    // EFFECTS: updates right mixer components according to their proper values
+    private void updateRightMixer() {
+        rightKey.setText(player.getNextSongKey());
+        rightBpm.setText(player.getNextSongBPM() + " BPM");
+        if (player.getNextSongGenre() != null) {
+            rightGenre.setText(player.getNextSongGenre().replaceAll(" ", "\n"));
+        } else {
+            rightGenre.setText("Unknown");
+        }
+
+        String[] artists = player.getNextSongArtists();
+        String artistsDisplay = artists[0];
+        for (int i = 1; i < artists.length; i++) {
+            artistsDisplay = artistsDisplay + ", " + artists[i];
+        }
+        rightArtists.setText(artistsDisplay);
+        rightName.setText(player.getNextSongName());
+    }
+
+    // MODIFIES: this
+    // EFFECTS: resets right mixer component values to their base
+    private void resetRightMixer() {
+        rightKey.setText("Key");
+        rightBpm.setText("BPM");
+        rightGenre.setText("Genre");
+        rightArtists.setText("Artists");
+        rightName.setText("Name");
+    }
+
+    // MODIFIES: this
+    // EFFECTS: updates the mixers or resets them if nothing is queue-able.
+    private void updateMixers() {
+        if (!player.getCurrentSetSongs().isEmpty()) {
+            updateLeftMixer();
+            updateRightMixer();
+        } else {
+            resetLeftMixer();
+            resetRightMixer();
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: handles the set up for the components of the left mixer
+    private void leftMixerComponentHandler() {
+        setupLeftPitch();
+        setupLeftVolume();
+        setupLeftSpeed();
+        setupLeftName();
+        setupLeftArtists();
+        setupLeftKey();
+        setupLeftBpm();
+        setupLeftGenre();
     }
 
     // MODIFIES: this
     // EFFECTS: initializes left mixer panel with position, size, graphic properties & components
     private void setupLeftMixer() {
+        leftMixerComponentHandler();
 
+        leftMixer = new JPanel();
+        leftMixer.setLayout(null);
+        leftMixer.setOpaque(false);
+        leftMixer.add(leftPitch);
+        leftMixer.add(leftVolume);
+        leftMixer.add(leftSpeed);
+        leftMixer.add(leftName);
+        leftMixer.add(leftArtists);
+        leftMixer.add(leftKey);
+        leftMixer.add(leftBpm);
+        leftMixer.add(leftGenre);
+        leftMixer.setBounds(0, BAR_HEIGHT, BAR_WIDTH / 2, FRAME_HEIGHT - 2 * BAR_HEIGHT);
     }
 
     // MODIFIES: this
@@ -404,6 +781,8 @@ public class GraphicalUI implements ActionListener {
         player.handleSongEnd();
         updateRemaining();
         updatePlayButton();
+        updateMixers();
+        transitionSliders();
     }
 
     // MODIFIES: this
@@ -437,6 +816,7 @@ public class GraphicalUI implements ActionListener {
     private void actionPlay() {
         player.togglePlay();
         updatePlayButton();
+        updateMixers();
     }
 
     // MODIFIES: this
@@ -466,7 +846,7 @@ public class GraphicalUI implements ActionListener {
         songsLeft.setLocation(BAR_WIDTH / 15, BAR_HEIGHT / 6);
 
         timer = new Timer(100, this);
-        timer.setInitialDelay(1000);
+        timer.setInitialDelay(5000);
         timer.start();
     }
 
@@ -550,6 +930,7 @@ public class GraphicalUI implements ActionListener {
         player.selectSet(nextSet);
         setName.setText(player.getCurrentSetTitle());
         updatePlayButton();
+        updateMixers();
     }
 
     // MODIFIES: this
@@ -671,6 +1052,7 @@ public class GraphicalUI implements ActionListener {
 
         player.selectSet(0);
         updateRemaining();
+        updateMixers();
         setName.setText(player.getCurrentSetTitle());
     }
 
@@ -711,8 +1093,8 @@ public class GraphicalUI implements ActionListener {
     // MODIFIES: this
     // EFFECTS: adds gui components onto the frame and sets up frame's graphical properties
     private void attachToFrame() {
-        //frame.add(leftMixer);
-        //frame.add(rightMixer);
+        frame.add(leftMixer);
+        frame.add(rightMixer);
         frame.add(bottomBar);
         frame.add(topBar);
         frame.add(bkg);
@@ -754,6 +1136,8 @@ public class GraphicalUI implements ActionListener {
         if (player.isEnd()) {
             player.handleSongEnd();
             updatePlayButton();
+            updateMixers();
+            transitionSliders();
         }
     }
 }
