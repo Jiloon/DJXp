@@ -59,3 +59,74 @@ mostly producers; so this is a good opportunity for me to get into it.
 - You can locate my visual component by the logo's in the top left. View sets/songs pops up tables.
 - You can save the state of my application by clicking on the floppy disc icon
 - You can reload the state of my application by clicking on the load icon
+
+# Phase 4: Task 2
+Wed Apr 12 23:57:25 PDT 2023
+Made new set: Daniel Set
+
+Wed Apr 12 23:57:32 PDT 2023
+Added Used To Love to Daniel Set
+
+Wed Apr 12 23:57:38 PDT 2023
+Added Why Did You Run? (JILOON Remix) to Daniel Set
+
+Wed Apr 12 23:57:43 PDT 2023
+Added Think About You | Nobody (JILOON Remix) to Daniel Set
+
+Wed Apr 12 23:57:49 PDT 2023
+Added Freak | Closer (JILOON Remix) to Daniel Set
+
+Wed Apr 12 23:57:55 PDT 2023
+Added I'm Gonna Love Ya (JILOON Remix) to Daniel Set
+
+Wed Apr 12 23:58:02 PDT 2023
+Added SOS ft. Aloe Blacc (JILOON Remix) to Daniel Set
+
+Wed Apr 12 23:58:08 PDT 2023
+Added Nothing Good Comes Easy (JILOON Remix) to Daniel Set
+
+Wed Apr 12 23:58:38 PDT 2023
+Playing audio
+
+Wed Apr 12 23:59:04 PDT 2023
+Set the current volume to 1.0
+
+Wed Apr 12 23:59:04 PDT 2023
+Set the current volume to 0.98
+
+Wed Apr 12 23:59:04 PDT 2023
+Set the current volume to 0.97
+
+Wed Apr 12 23:59:04 PDT 2023
+Set the current volume to 0.95
+
+Wed Apr 12 23:59:04 PDT 2023
+Set the current volume to 0.94
+
+Wed Apr 12 23:59:04 PDT 2023
+Set the current volume to 0.93
+
+Wed Apr 12 23:59:04 PDT 2023
+Set the current volume to 0.91
+
+Wed Apr 12 23:59:04 PDT 2023
+Set the current volume to 0.9
+
+Wed Apr 12 23:59:04 PDT 2023
+Set the current volume to 0.89
+
+# Phase 4: Task 3
+Each of my classes is doing way too much. Each class is handling multiple tasks, making it cluttered and really not
+straightforward. The Song class is mostly fine, although I could think of possibly splitting the MP3 parser into a
+separate class and just have 1 singular universal MP3 parser instance that handles all the mp3 parsing, and then
+acquire the data from the song class. The Playback class is the meat of the program, which in other words means
+it handles way too much. The actual audio handler should be completely separate, while the rest should be split into
+a song handler and a set handler. The GUI & ConsoleUI are both single classes which should really be split into
+more bite-sized portions. It's just one big blob now while they should be split into more organized sections of the
+UI. The model can also make use of more interfaces for less replicated code.
+
+Furthermore, I feel that I misplaced some work loads. As of now, the UIs handle the user input, which is completely
+right, but it then sends raw user inputted strings straight to the playback object, and the playback object converts
+the user inputted strings into their appropriate objects, and then applies the respective function on that object.
+There should be an intermediary class that handles the conversion from user inputted strings into the objects, then
+sends those objects to have their function applied to them.

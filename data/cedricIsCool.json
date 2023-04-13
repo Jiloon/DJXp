@@ -1,0 +1,97 @@
+{"sets": [
+    {
+        "songs": [
+            {
+                "file": "Martin Garrix, Dean Lewis - Used To Love",
+                "artists": [
+                    "Martin Garrix",
+                    "Dean Lewis"
+                ],
+                "name": "Used To Love",
+                "length": 236.8936767578125,
+                "genre": "EDM",
+                "bpm": 119,
+                "key": "C# Maj"
+            },
+            {
+                "file": "Judah and the Lion - Why did you run (JILOON Remix)",
+                "artists": ["Judah & the Lion"],
+                "name": "Why Did You Run? (JILOON Remix)",
+                "length": 215.0531768798828,
+                "bpm": 128,
+                "key": "C Maj"
+            },
+            {
+                "file": "Avicii - SOS ft. Aloe Blacc (JILOON Remix)",
+                "artists": ["Avicii"],
+                "name": "SOS ft. Aloe Blacc (JILOON Remix)",
+                "length": 199.9529266357422,
+                "genre": "Dance",
+                "bpm": 84,
+                "key": "F# Min"
+            }
+        ],
+        "name": "MySet",
+        "genre": "EDM"
+    },
+    {
+        "songs": [
+            {
+                "file": "Martin Garrix, Dean Lewis - Used To Love",
+                "artists": [
+                    "Martin Garrix",
+                    "Dean Lewis"
+                ],
+                "name": "Used To Love",
+                "length": 236.8936767578125,
+                "genre": "EDM",
+                "bpm": 119,
+                "key": "C# Maj"
+            },
+            {
+                "file": "Kygo x NOTD - Think About You x Nobody (JILOON Remix)",
+                "artists": [
+                    "Kygo",
+                    "NOTD",
+                    "JILOON"
+                ],
+                "name": "Think About You | Nobody (JILOON Remix)",
+                "length": 180.15017700195312,
+                "bpm": 116,
+                "key": "G# Min"
+            },
+            {
+                "file": "Judah and the Lion - Why did you run (JILOON Remix)",
+                "artists": ["Judah & the Lion"],
+                "name": "Why Did You Run? (JILOON Remix)",
+                "length": 215.0531768798828,
+                "bpm": 128,
+                "key": "C Maj"
+            },
+            {
+                "file": "Avicii, The Chainsmokers, JILOON - Closer, Freak (Remix)",
+                "artists": [
+                    "Avicii",
+                    "The Chainsmokers",
+                    "JILOON"
+                ],
+                "name": "Freak | Closer (JILOON Remix)",
+                "length": 228.873291015625,
+                "genre": "Mashup",
+                "bpm": 116,
+                "key": "E Min"
+            },
+            {
+                "file": "Avicii - I'm Gonna Love Ya (JILOON Remix)",
+                "artists": ["Avicii"],
+                "name": "I'm Gonna Love Ya (JILOON Remix)",
+                "length": 195.25042724609375,
+                "genre": "Dance",
+                "bpm": 111,
+                "key": "D# Minor"
+            }
+        ],
+        "name": "MGX",
+        "genre": "Future House"
+    }
+]}

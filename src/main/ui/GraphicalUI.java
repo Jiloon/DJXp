@@ -1,5 +1,7 @@
 package ui;
 
+import model.EventLog;
+import model.Event;
 import model.Playback;
 import model.Set;
 import model.Song;
@@ -21,6 +23,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Arrays;
 
+// A basic stripped DJ application using a graphical UI
 public class GraphicalUI implements ActionListener {
     static final int FRAME_WIDTH = 1200;
     static final int FRAME_HEIGHT = 675;
@@ -583,6 +586,7 @@ public class GraphicalUI implements ActionListener {
                 JOptionPane.QUESTION_MESSAGE, null, songList, songList[0]);
 
         player.addSongToSet(songName, player.getCurrentSetTitle());
+        actionNextSet(0);
     }
 
     // MODIFIES: this
@@ -1111,11 +1115,19 @@ public class GraphicalUI implements ActionListener {
                 new WindowAdapter() {
                     @Override
                     public void windowClosing(WindowEvent e) {
+                        printLog();
                         System.exit(0);
                     }
                 }
         );
         frame.getContentPane().setBackground(Color.BLACK);
+    }
+
+    // EFFECTS: prints out the event log to the console
+    public void printLog() {
+        for (Event event : EventLog.getInstance()) {
+            System.out.println(event.toString() + "\n");
+        }
     }
 
     // MODIFIES: this

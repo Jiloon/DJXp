@@ -88,6 +88,7 @@ public class Playback {
     // EFFECTS: creates a new song object through given file name, bpm, and key, and adds it to the song pool
     public void addSong(String fileName, int givenBPM, String givenKey) {
         poolOfSongs.add(new Song(fileName, givenBPM, givenKey));
+        EventLog.getInstance().logEvent(new Event("Added " + fileName + " to the pool"));
     }
 
     // MODIFIES: this
@@ -147,6 +148,7 @@ public class Playback {
     // EFFECTS: produces new set obj with given name and genre and adds it to the list of sets
     public void makeNewSet(String givenName, String givenGenre) {
         listOfSets.add(new Set(givenName, givenGenre));
+        EventLog.getInstance().logEvent(new Event("Made new set: " + givenName));
     }
 
     // MODIFIES: this
@@ -202,6 +204,8 @@ public class Playback {
         if (!found) {
             throw new NullPointerException(SET_NOT_FOUND);
         }
+
+        EventLog.getInstance().logEvent(new Event("Removed set " + setName));
     }
 
     public ArrayList<Set> getAllSets() {
@@ -254,6 +258,8 @@ public class Playback {
         if (!found) {
             throw new NullPointerException(SONG_NOT_FOUND);
         }
+
+        EventLog.getInstance().logEvent(new Event("Removed " + songName + " from " + setName));
     }
 
     /*
@@ -314,6 +320,8 @@ public class Playback {
         if (!found) {
             throw new NullPointerException(SET_NOT_FOUND);
         }
+
+        EventLog.getInstance().logEvent(new Event("Added " + songName + " to " + setName));
     }
 
     /*
@@ -539,6 +547,8 @@ public class Playback {
         if (!found) {
             throw new NullPointerException(SET_NOT_FOUND);
         }
+
+        EventLog.getInstance().logEvent(new Event("Selected set " + givenSetName));
     }
 
     // MODIFIES: this
@@ -561,6 +571,8 @@ public class Playback {
         if (!getCurrentSetSongs().isEmpty()) {
             audioPlayer = new MediaPlayer(getCurrentSong().getAudio());
         }
+
+        EventLog.getInstance().logEvent(new Event("Selected set " + listOfSets.get(currentSet).getName()));
     }
 
     // MODIFIES: this
@@ -573,6 +585,8 @@ public class Playback {
             stopped = false;
             status = "playing";
         }
+
+        EventLog.getInstance().logEvent(new Event("Playing audio"));
     }
 
     // MODIFIES: this
@@ -580,6 +594,8 @@ public class Playback {
     public void pause() {
         audioPlayer.pause();
         status = "paused";
+
+        EventLog.getInstance().logEvent(new Event("Paused audio"));
     }
 
     // EFFECTS: returns audioPlayer status
@@ -608,6 +624,8 @@ public class Playback {
     public void setSpeed(double speed) {
         currentSpeed = speed;
         audioPlayer.setRate(currentSpeed);
+
+        EventLog.getInstance().logEvent(new Event("Set the current speed to " + speed));
     }
 
     // MODIFIES: this
@@ -615,18 +633,24 @@ public class Playback {
     public void setVolume(double volume) {
         currentVolume = volume;
         audioPlayer.setVolume(currentVolume);
+
+        EventLog.getInstance().logEvent(new Event("Set the current volume to " + volume));
     }
 
     // MODIFIES: this
     // EFFECTS: sets next playback speed to specification
     public void setNextSpeed(double speed) {
         nextSpeed = speed;
+
+        EventLog.getInstance().logEvent(new Event("Set the next speed to " + speed));
     }
 
     // MODIFIES: this
     // EFFECTS: sets next playback volume to specification
     public void setNextVolume(double volume) {
         nextVolume = volume;
+
+        EventLog.getInstance().logEvent(new Event("Set the next volume to " + volume));
     }
 
     // EFFECTS: returns the current playback speed
