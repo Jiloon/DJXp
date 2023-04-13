@@ -129,4 +129,5 @@ Furthermore, I feel that I misplaced some work loads. As of now, the UIs handle 
 right, but it then sends raw user inputted strings straight to the playback object, and the playback object converts
 the user inputted strings into their appropriate objects, and then applies the respective function on that object.
 There should be an intermediary class that handles the conversion from user inputted strings into the objects, then
-sends those objects to have their function applied to them.
+sends those objects to have their function applied to them. It's just more straightforward and a cleaner design that
+way.
